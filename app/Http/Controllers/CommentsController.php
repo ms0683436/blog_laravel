@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Post;
-use Session;
+use App\Services\CommentService;
+use Response;
 
-class PostController extends Controller
+class CommentsController extends Controller
 {
-    public function __construct()
+    protected $commentService;
+
+    public function __construct(CommentService $commentService)
     {
-        // $this->middleware('auth');
+        $this->commentService = $commentService;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,9 +23,20 @@ class PostController extends Controller
     public function index()
     {
         //
-        $post = Post::orderBy('id', 'desc')->paginate(5);
+    }
 
-        return view('posts.index')->withPosts($post);
+    /**
+     * Display the post's comments.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showPostComments($post_id)
+    {
+        //
+        $comment = $this->commentService
+        ->getPostComment($post_id);
+        
+        return response()->json($comment);
     }
 
     /**
@@ -34,7 +47,6 @@ class PostController extends Controller
     public function create()
     {
         //
-        return view('posts.create');
     }
 
     /**
@@ -45,24 +57,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //validate the data
-        $this->validate($request, array(
-            'title' => 'required|max:255',
-            'body' => 'required'
-        ));
-
-        //store in database
-        $post = new Post;
-        
-        $post->user_id = Auth::user()->id;
-        $post->title = $request->title;
-        $post->body = $request->body;
-
-        $post->save();
-
-        Session::flash('success', 'The blog post was successfully save!');
-
-        return redirect()->route('posts.index');
+        //
     }
 
     /**
@@ -85,8 +80,6 @@ class PostController extends Controller
     public function edit($id)
     {
         //
-        $post = Post::find($id);
-        return view('posts.edit')->withPost($post);
     }
 
     /**
@@ -99,16 +92,6 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         //
-        print_r('aaaaa');
-        $post = Post::find($id);
-        $post->title = $request->title;
-        $post->body = $request->body;
-
-        $post->save();
-
-        Session::flash('success', 'The blog post was successfully save!');
-
-        return redirect()->route('posts.index');
     }
 
     /**

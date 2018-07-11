@@ -1,5 +1,7 @@
 @extends('layouts.index')
 
+@section('title', '| New Blog Post')
+
 @section('content')
 <form action="{{ route('posts.store') }}" method="POST">
     @csrf
