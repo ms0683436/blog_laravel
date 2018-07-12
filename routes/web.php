@@ -19,4 +19,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('posts', 'PostController')->middleware('auth');
 
-Route::get('{post_id}/comments', 'CommentsController@showPostComments')->name('comment');
+Route::get('{post_id}/comments', 'CommentsController@showPostComments')->name('comment.index');
+Route::post('{post_id}/comments', 'CommentsController@store')->name('comment.store');

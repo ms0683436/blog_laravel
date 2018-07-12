@@ -99,7 +99,10 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         //
-        print_r('aaaaa');
+        $this->validate($request, array(
+            'title' => 'required|max:255',
+            'body' => 'required'
+        ));
         $post = Post::find($id);
         $post->title = $request->title;
         $post->body = $request->body;
