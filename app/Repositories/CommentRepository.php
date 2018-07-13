@@ -17,6 +17,7 @@ class CommentRepository
     public function getPostComment($post_id)
     {
         return $this->comment
+            ->join('user', 'comment.user_id', '=', 'user.id')   // not test
             ->where('post_id', '=', $post_id)
             ->orderBy('id', 'desc')
             ->get();

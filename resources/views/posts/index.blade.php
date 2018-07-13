@@ -53,6 +53,14 @@
             //issue click other comment button the first comment will disappear
             var isShow = document.getElementById(post_id);
             if (isShow.className == 'collapse') {
+                //ajax
+                // $.ajax({         
+                //     type: "GET",
+                //     url: "{{ route('comment.index', $post->id) }}",
+                //     success: function( msg ) {
+                //         console.log(msg);
+                //     }
+                // });
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
