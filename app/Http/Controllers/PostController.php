@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\PostService;
 use App\Post;
 use Session;
 
 class PostController extends Controller
 {
-    public function __construct()
+    protected $postService;
+
+    public function __construct(PostService $postService)
     {
-        // $this->middleware('auth');
+        $this->postService = $postService;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,9 +24,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
-        $post = Post::orderBy('id', 'desc')->paginate(5);
-
+        $post = $this->postService->index();
+        
         return view('posts.index')->withPosts($post);
     }
 
@@ -123,5 +126,11 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+        $post = Post::find($id);
+
+        $post->delete();
+        Session::flash('success', 'The post was deleted.');
+        
+        return redirect()->route('posts.index');
     }
 }

@@ -1,21 +1,31 @@
 <?php
 namespace App\Presenters;
 
+use Illuminate\Support\Facades\Auth;
+
 class PostPresenter
 {
-    /**
-     * 性別欄位為M，就顯示Mr.，若性別欄位為F，就顯示Mrs.
-     * @param string $gender
-     * @param string $name
-     * @return string
-     */
-    public function getFullName($gender, $name)
+    public function getLikeButton($post_id, $isActive)
     {
-        if ($gender == 'M')
-            $fullName = 'Mr. ' . $name;
-        else
-            $fullName = 'Mrs. ' . $name;
+        $onclick = "";
+        $title = "";
+        if (!Auth::check()) {
+            $class = "btn btn-outline-success disabled";
+            $ariaPressed = "false";
+            $title = "you have to login!";
+        }
+        else if ($isActive) {
+            $class = "btn btn-outline-success active";
+            $ariaPressed = "true";
+            $onclick = "likeFunction($post_id, 1)";
+        }
+        else {
+            $class = "btn btn-outline-success";
+            $ariaPressed = "false";
+            $onclick = "likeFunction($post_id, 1)";
+        }
 
-        return $fullName;
+        $button = "<button type='button' data-toggle='button' id='like$post_id' onclick='$onclick' title='$title' class='$class' aria-pressed='$ariaPressed'>";
+        return $button;
     }
 }
