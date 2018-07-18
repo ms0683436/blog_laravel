@@ -55,7 +55,7 @@ class PostController extends Controller
         ));
 
         //store in database
-        $post = $this->postService->store($reques->title, $reques->body);
+        $post = $this->postService->store($request->title, $request->body);
 
         Session::flash('success', 'The blog post was successfully save!');
 
@@ -101,7 +101,7 @@ class PostController extends Controller
             'body' => 'required'
         ));
 
-        $post = $this->postService->update($reques->title, $reques->body);
+        $post = $this->postService->update($id, $request->title, $request->body);
 
         Session::flash('success', 'The blog post was successfully save!');
 

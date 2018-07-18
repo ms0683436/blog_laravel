@@ -27,8 +27,16 @@ users:
 |      name      	|   String  	|
 |      email     	|   String  	|
 | remember_token 	|   String    	|
-|   update_time  	| Timestamp 	|
-|   create_time  	| Timestamp 	|
+|   updated_time  	| Timestamp 	|
+|   created_time  	| Timestamp 	|
+
+password_resets:
+
+| Column Name |    Type   |
+|:-----------:|:---------:|
+|    email    |  Varchar  |
+|    token    |  Varchar  |
+|  created_at | Timestamp |
 
 posts:
 
@@ -38,8 +46,8 @@ posts:
 |   user_id   	|    Int    	|
 |    title    	|   String  	|
 |     body    	|  Longtext 	|
-| update_time 	| Timestamp 	|
-| create_time 	| Timestamp 	|
+| updated_time 	| Timestamp 	|
+| created_time 	| Timestamp 	|
 
 comments:
 
@@ -49,8 +57,8 @@ comments:
 |   user_id   	|    Int    	|
 |   post_id   	|    Int    	|
 |   comment   	|    Text   	|
-| update_time 	| Timestamp 	|
-| create_time 	| Timestamp 	|
+| updated_time 	| Timestamp 	|
+| created_time 	| Timestamp 	|
 
 likelist:
 
@@ -59,5 +67,13 @@ likelist:
 |   user_id   |    Int    |
 |  object_id  |    Int    |
 |    object   |    Int    |
-|  update_at  | Timestamp |
-|  create_at  | Timestamp |
+|  updated_at  | Timestamp |
+|  created_at  | Timestamp |
+
+migrations:
+
+| Column Name |   Type  |
+|:-----------:|:-------:|
+|      id     |   Int   |
+|  migration  | Varchar |
+|    batch    |   Int   |

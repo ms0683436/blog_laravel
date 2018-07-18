@@ -63,13 +63,10 @@ class CommentsController extends Controller
         // $this->validate($request, array(
         //     'comment' => 'required|max:255'
         // ));
-        $comment = new Comment;
+        $save = $this->commentService->store($post_id, $request->comment);
         
-        $comment->user_id = Auth::user()->id;
-        $comment->post_id = $post_id;
-        $comment->comment = $request->comment;
+        $comment = $this->commentService->getCommentsByMaxId($post_id, $request->last_comment_id);
 
-        $comment->save();
         return response()->json($comment);
     }
 

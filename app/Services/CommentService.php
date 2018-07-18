@@ -20,4 +20,20 @@ class CommentService
         
         return $comment;
     }
+
+    public function getCommentsByMaxId($post_id, $last_comment_id)
+    {
+        $comment = $this->commentRepository
+        ->getCommentsByMaxId($post_id, $last_comment_id);
+        
+        return $comment;
+    }
+
+    public function store($post_id, $comment)
+    {
+        $comment = $this->commentRepository
+        ->store($post_id, $comment);
+        
+        return $comment;
+    }
 }

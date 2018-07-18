@@ -27,9 +27,9 @@ class PostService
         ->store($title, $body);
     }
 
-    public function update($title, $body)
+    public function update($id, $title, $body)
     {
         $post = $this->postRepository
-        ->update($title, $body);
+        ->update($id, $title, $body);
     }
 }

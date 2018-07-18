@@ -38,7 +38,7 @@ class PostRepository
         $post->save();
     }
 
-    public function update($title, $body)
+    public function update($id, $title, $body)
     {
         $post = Post::find($id);
         $post->title = $title;
