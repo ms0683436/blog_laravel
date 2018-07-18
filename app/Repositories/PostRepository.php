@@ -15,7 +15,6 @@ class PostRepository
         $this->post = $post;
     }
 
-    
     public function index()
     {
         $user_id = Auth::check() ? Auth::user()->id : 0;
@@ -26,5 +25,25 @@ class PostRepository
             ->join('users', 'posts.user_id', '=', 'users.id')
             ->orderBy('posts.id', 'desc')
             ->paginate(5);
+    }
+
+    public function store($title, $body)
+    {
+        $post = new Post;
+        
+        $post->user_id = Auth::user()->id;
+        $post->title = $title;
+        $post->body = $body;
+
+        $post->save();
+    }
+
+    public function update($title, $body)
+    {
+        $post = Post::find($id);
+        $post->title = $title;
+        $post->body = $body;
+
+        $post->save();
     }
 }

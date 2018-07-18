@@ -17,10 +17,9 @@ class CommentRepository
     public function getPostComment($post_id)
     {
         return $this->comment
-            ->select(['name', 'comment', 'comments.updated_at'])
             ->join('users', 'comments.user_id', '=', 'users.id')
             ->where('post_id', '=', $post_id)
             ->orderBy('comments.id', 'desc')
-            ->get();
+            ->get(['name', 'comment', 'comments.updated_at']);
     }
 }

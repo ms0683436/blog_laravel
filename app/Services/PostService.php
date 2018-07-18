@@ -20,4 +20,16 @@ class PostService
         
         return $post;
     }
+
+    public function store($title, $body)
+    {
+        $post = $this->postRepository
+        ->store($title, $body);
+    }
+
+    public function update($title, $body)
+    {
+        $post = $this->postRepository
+        ->update($title, $body);
+    }
 }

@@ -14,8 +14,6 @@
                 <p>
                     <div class="form-inline">
                     {!! $PostPresenter->getLikeButton($post->id, $post->isActive) !!}
-                    
-                    <!-- <button type="button" class="btn btn-outline-success disabled" data-toggle="button" aria-pressed="false" data-toggle='tooltip' title='you have to login!'> -->
                         Like<span class='badge badge-light' id='countlike{{$post->id}}'>{{$post->count}}</span>
                     </button>
                     <button onclick="showComment({{$post->id}})" type='button' class='btn btn-outline-primary' data-toggle='collapse' data-target="#{{$post->id}}" aria-expanded='false' aria-controls='collapseExample'>

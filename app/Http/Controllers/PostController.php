@@ -55,13 +55,7 @@ class PostController extends Controller
         ));
 
         //store in database
-        $post = new Post;
-        
-        $post->user_id = Auth::user()->id;
-        $post->title = $request->title;
-        $post->body = $request->body;
-
-        $post->save();
+        $post = $this->postService->store($reques->title, $reques->body);
 
         Session::flash('success', 'The blog post was successfully save!');
 
@@ -106,11 +100,8 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'body' => 'required'
         ));
-        $post = Post::find($id);
-        $post->title = $request->title;
-        $post->body = $request->body;
 
-        $post->save();
+        $post = $this->postService->update($reques->title, $reques->body);
 
         Session::flash('success', 'The blog post was successfully save!');
 
@@ -130,7 +121,7 @@ class PostController extends Controller
 
         $post->delete();
         Session::flash('success', 'The post was deleted.');
-        
+
         return redirect()->route('posts.index');
     }
 }

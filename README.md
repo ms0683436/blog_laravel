@@ -10,6 +10,13 @@ use laravel 5.6 to build a blog
 - add avatar
 - chat room
 
+## Installation
+- `git clone https://github.com/ms0683436/blog_laravel.git`
+- `cd blog_laravel`
+- `composer install`
+- `php artisan migrate`
+- `php artisan serve` to start the app on http://localhost:8000/
+
 ## Database Structure
 
 users:
@@ -44,3 +51,13 @@ comments:
 |   comment   	|    Text   	|
 | update_time 	| Timestamp 	|
 | create_time 	| Timestamp 	|
+
+likelist:
+
+| Column Name |    Type   |
+|:-----------:|:---------:|
+|   user_id   |    Int    |
+|  object_id  |    Int    |
+|    object   |    Int    |
+|  update_at  | Timestamp |
+|  create_at  | Timestamp |
