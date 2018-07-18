@@ -60,9 +60,10 @@ class CommentsController extends Controller
     public function store(Request $request, $post_id)
     {
         //
-        // $this->validate($request, array(
-        //     'comment' => 'required|max:255'
-        // ));
+        $this->validate($request, array(
+            'last_comment_id' => 'required',
+            'comment' => 'required|max:255'
+        ));
         $save = $this->commentService->store($post_id, $request->comment);
         
         $comment = $this->commentService->getCommentsByMaxId($post_id, $request->last_comment_id);

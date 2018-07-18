@@ -16,7 +16,7 @@ function leaveComment(post_id) {
             data: {
                 '_token': $('meta[name="csrf-token"]').attr('content'),
                 'comment': comment,
-                'last_comment_id': $('#comment'+post_id).children(".max").attr('id')
+                'last_comment_id': $('#comment'+post_id).children(".max").attr('id') ? $('#comment'+post_id).children(".max").attr('id') : 0
             },
             success: function(msg) {
                 $("#comment_content"+post_id).val('');	// clear comment div
