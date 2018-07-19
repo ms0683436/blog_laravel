@@ -5,6 +5,7 @@ namespace app\Repositories;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Post;
+use App\Like;
 
 class PostRepository
 {
@@ -18,13 +19,18 @@ class PostRepository
     public function index()
     {
         $user_id = Auth::check() ? Auth::user()->id : 0;
-        return $this->post
-            ->select('posts.id', 'user_id', 'name', 'title', 'body', 'posts.updated_at', 
-                    DB::raw("(SELECT COUNT(likelist.user_id) FROM likelist WHERE likelist.object_id = posts.id AND likelist.object = 1) AS count"),
-                    DB::raw("(SELECT COUNT(likelist.user_id) FROM likelist WHERE likelist.user_id = ". $user_id ." AND likelist.object_id = posts.id AND likelist.object = 1) AS isActive"))
+        $posts = $this->post
             ->join('users', 'posts.user_id', '=', 'users.id')
             ->orderBy('posts.id', 'desc')
-            ->paginate(5);
+            ->get(['posts.id', 'user_id', 'name', 'title', 'body', 'posts.updated_at']);
+
+        $posts->each(function ($item, $key) use ($user_id) {
+            $count = Like::where([['object', '=', 1], ['object_id', '=', $item->id]])->count();
+            $isActive = Like::where([['object', '=', 1], ['user_id', '=', $user_id], ['object_id', '=', $item->id]])->count();
+            $item['count'] = $count;
+            $item['isActive'] = $isActive;
+        });
+        return $posts;
     }
 
     public function store($title, $body)
